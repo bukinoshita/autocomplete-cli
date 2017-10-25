@@ -1,0 +1,33 @@
+{
+  "name": "autocomplete-cli",
+  "version": "0.0.0",
+  "description": "Command line interface autocomplete",
+  "main": "index.js",
+  "repository": "https://github.com/bukinoshita/autocomplete-cli.git",
+  "author": "Bu Kinoshita <bukinoshita@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "autocomplete",
+    "auto",
+    "complete",
+    "cli",
+    "command",
+    "line",
+    "interface"
+  ],
+  "files": ["index.js"],
+  "scripts": {
+    "test": "xo"
+  },
+  "dependencies": {
+    "ansi-escapes": "^3.0.0",
+    "chalk": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^2.6.0",
+    "xo": "^0.18.2"
+  },
+  "xo": {
+    "extends": ["prettier"]
+  }
+}
