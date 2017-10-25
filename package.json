@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Command line interface autocomplete",
   "main": "index.js",
   "repository": "https://github.com/bukinoshita/autocomplete-cli.git",
@@ -15,7 +15,9 @@
     "line",
     "interface"
   ],
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "xo"
   },
@@ -28,6 +30,8 @@
     "xo": "^0.18.2"
   },
   "xo": {
-    "extends": ["prettier"]
+    "extends": [
+      "prettier"
+    ]
   }
 }
