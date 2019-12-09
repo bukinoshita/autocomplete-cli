@@ -70,8 +70,8 @@ module.exports = (
         } else if (data === '\x08' || data === '\x7f') {
           // Delete key needs splicing according to caret position
           val =
-            val.substr(0, val.length + caretOffset - 1) +
-            val.substr(val.length + caretOffset)
+            val.slice(0, val.length + caretOffset - 1) +
+            val.slice(val.length + caretOffset)
         } else {
           if (resolveChars.has(data)) {
             restore()
@@ -80,9 +80,9 @@ module.exports = (
 
           const add = forceLowerCase ? data.toLowerCase() : data
           val =
-            val.substr(0, val.length + caretOffset) +
+            val.slice(0, val.length + caretOffset) +
             add +
-            val.substr(val.length + caretOffset)
+            val.slice(val.length + caretOffset)
         }
 
         if (val.length > 0) {
@@ -91,8 +91,8 @@ module.exports = (
               break
             }
 
-            if (val === sugestion.substr(0, val.length)) {
-              suggestion = sugestion.substr(val.length)
+            if (val === sugestion.slice(0, val.length)) {
+              suggestion = sugestion.slice(val.length)
               completion = chalk[suggestionColor](suggestion)
               completion += ansi.cursorBackward(sugestion.length - val.length)
               break
