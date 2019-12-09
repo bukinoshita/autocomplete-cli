@@ -7,7 +7,8 @@ module.exports = (
   { forceLowerCase = false, start = '', suggestions = [], suggestionColor = 'gray' } = {}
 ) => {
   return new Promise((resolve, reject) => {
-    const { stdout, stdin: { isRaw } } = process
+    const { stdout, stdin } = process
+    const { isRaw } = stdin
     const abortChars = new Set(['\u0003'])
     const resolveChars = new Set(['\r'])
     const autoCompleteChars = new Set([
