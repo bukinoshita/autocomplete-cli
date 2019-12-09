@@ -4,12 +4,11 @@ const ansi = require('ansi-escapes')
 const chalk = require('chalk')
 
 module.exports = (
-  { start = '', suggestions = [], suggestionColor = 'gray' } = {}
+  { forceLowerCase = false, start = '', suggestions = [], suggestionColor = 'gray' } = {}
 ) => {
   return new Promise((resolve, reject) => {
     const { stdout, stdin } = process
     const isRaw = stdin.isRaw
-    const forceLowerCase = true
     const abortChars = new Set(['\u0003'])
     const resolveChars = new Set(['\r'])
     const autoCompleteChars = new Set([
