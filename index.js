@@ -1,11 +1,12 @@
-'use strict'
-
 const ansi = require('ansi-escapes')
 const chalk = require('chalk')
 
-module.exports = (
-  { forceLowerCase = false, start = '', suggestions = [], suggestionColor = 'gray' } = {}
-) => {
+module.exports = ({
+  forceLowerCase = false,
+  start = '',
+  suggestions = [],
+  suggestionColor = 'gray'
+} = {}) => {
   return new Promise((resolve, reject) => {
     const { stdout, stdin } = process
     const { isRaw } = stdin
@@ -14,7 +15,7 @@ module.exports = (
     const autoCompleteChars = new Set([
       '\t' /* tab */,
       '\r' /* return */,
-      '\x1b[C' /* right arrow */,
+      '\u001B[C' /* right arrow */,
       ' ' /* Spacebar */
     ])
 
@@ -31,7 +32,7 @@ module.exports = (
       stdout.write('')
       stdin.setRawMode(isRaw)
       stdin.pause()
-      stdin.removeListener('data', onData) // eslint-disable-line no-use-before-define
+      stdin.removeListener('data', onData)
     }
 
     let val = ''
@@ -39,7 +40,7 @@ module.exports = (
     let caretOffset = 0
 
     // To make `for..of` work with buble
-    const _suggestions = Array.from(suggestions)
+    const _suggestions = [...suggestions]
 
     const onData = buffer => {
       const data = buffer.toString()
@@ -59,19 +60,17 @@ module.exports = (
         val += suggestion
         suggestion = ''
       } else {
-        if (data === '\x1b[D') {
+        if (data === '\u001B[D') {
           if (val.length > Math.abs(caretOffset)) {
             caretOffset--
           }
-        } else if (data === '\x1b[C') {
+        } else if (data === '\u001B[C') {
           if (caretOffset < 0) {
             caretOffset++
           }
-        } else if (data === '\x08' || data === '\x7f') {
+        } else if (data === '\u0008' || data === '\u007F') {
           // Delete key needs splicing according to caret position
-          val =
-            val.slice(0, val.length + caretOffset - 1) +
-            val.slice(val.length + caretOffset)
+          val = val.slice(0, val.length + caretOffset - 1) + val.slice(val.length + caretOffset)
         } else {
           if (resolveChars.has(data)) {
             restore()
@@ -79,10 +78,7 @@ module.exports = (
           }
 
           const add = forceLowerCase ? data.toLowerCase() : data
-          val =
-            val.slice(0, val.length + caretOffset) +
-            add +
-            val.slice(val.length + caretOffset)
+          val = val.slice(0, val.length + caretOffset) + add + val.slice(val.length + caretOffset)
         }
 
         if (val.length > 0) {
